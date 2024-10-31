@@ -1,0 +1,80 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnements virtuels
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Pytest
+.cache/
+*.cover
+nosetests.xml
+coverage.xml
+*.coveragerc
+*.pytest_cache/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Pyre type checker
+.pyre/
+.pyre_configuration
+.pylint.d/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pylint
+pylint-report.txt
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Logs
+*.log
+
+# Configuration files
+*.cfg
+*.ini
+*.json
+
+# Ignore local environment variables
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db

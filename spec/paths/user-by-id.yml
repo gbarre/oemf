@@ -1,0 +1,67 @@
+---
+get:
+  summary: Get a user
+  operationId: api.users.get
+  parameters:
+    - $ref: "../components/parameters.yml#/user_id"
+  responses:
+    "200":
+      description: A user object
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas.yml#/User"
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+    "404":
+      $ref: "../components/responses.yml#/NotFound"
+
+put:
+  summary: Update a user.
+  operationId: api.users.put
+  parameters:
+    - $ref: "../components/parameters.yml#/user_id"
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../components/schemas.yml#/User"
+  responses:
+    "200":
+      description: User configured
+      content:
+        application/json:
+          schema:
+              $ref: "../components/schemas.yml#/User"
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+    "403":
+      $ref: "../components/responses.yml#/Forbidden"
+    "404":
+      $ref: "../components/responses.yml#/NotFound"
+    "409":
+      $ref: "../components/responses.yml#/Conflict"
+
+delete:
+  summary: Delete a user
+  operationId: api.users.delete
+  parameters:
+    - $ref: "../components/parameters.yml#/user_id"
+  responses:
+    "204":
+      description: User deleted
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+    "403":
+      $ref: "../components/responses.yml#/Forbidden"
+    "404":
+      $ref: "../components/responses.yml#/NotFound"
+    "409":
+      $ref: "../components/responses.yml#/Conflict"

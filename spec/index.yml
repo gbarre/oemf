@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: API "Où est ma flèche"
+  version: 1.0.0
+  license:
+    name: GNU GPLv3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+
+servers:
+  - url: /api
+
+components:
+  parameters:
+    $ref: ./components/parameters.yml
+  requestBodies: {}
+  responses:
+    $ref: ./components/responses.yml
+  schemas:
+    $ref: ./components/schemas.yml
+
+paths:
+  /arrows:
+    $ref: ./paths/arrows.yml
+  /arrows/{arrow_id}:
+    $ref: ./paths/arrow-by-id.yml
+
+  /users:
+    $ref: ./paths/users.yml
+  /users/{user_id}:
+    $ref: ./paths/user-by-id.yml

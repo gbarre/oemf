@@ -1,0 +1,63 @@
+---
+get:
+  summary: Get an arrow by ID
+  operationId: api.arrows.get
+  parameters:
+    - $ref: "../components/parameters.yml#/arrow_id"
+  responses:
+    '200':
+      description: An arrow object
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yml#/Arrow'
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+    "404":
+      $ref: "../components/responses.yml#/NotFound"
+
+put:
+  summary: Update an arrow
+  operationId: api.arrows.put
+  parameters:
+    - $ref: "../components/parameters.yml#/arrow_id"
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../components/schemas.yml#/Arrow'
+  responses:
+    '200':
+      description: Arrow updated
+      content:
+        application/json:
+          schema:
+            $ref: '../components/schemas.yml#/Arrow'
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+    "403":
+      $ref: "../components/responses.yml#/Forbidden"
+    "404":
+      $ref: "../components/responses.yml#/NotFound"
+
+delete:
+  summary: Delete an arrow
+  operationId: api.arrows.delete
+  parameters:
+    - $ref: "../components/parameters.yml#/arrow_id"
+  responses:
+    '204':
+      description: Arrow deleted
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+    "403":
+      $ref: "../components/responses.yml#/Forbidden"
+    "404":
+      $ref: "../components/responses.yml#/NotFound"

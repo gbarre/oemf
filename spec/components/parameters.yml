@@ -1,0 +1,44 @@
+---
+offset:
+  in: query
+  name: offset
+  description: The number of items to skip before collecting the result set
+  required: false
+  schema:
+    type: integer
+    minimum: 0
+    default: 0
+limit:
+  in: query
+  name: limit
+  description: The number of items to return
+  required: false
+  schema:
+    type: integer
+    minimum: 1
+    maximum: 1000
+    default: 100
+filters:
+  in: query
+  name: filters
+  description: The fields of the response to filter by
+  required: false
+  schema:
+    type: object
+    default: {}
+  style: deepObject
+  explode: true
+user_id:
+  in: path
+  name: user_id
+  required: true
+  description: User unique id
+  schema:
+    type: integer
+arrow_id:
+  in: path
+  name: arrow_id
+  required: true
+  description: Arrow unique id
+  schema:
+    type: integer

@@ -1,0 +1,184 @@
+---
+Error:
+  type: object
+  properties:
+    error:
+      type: string
+    error_description:
+      oneOf:
+        - type: string
+        - type: object
+
+Arrow:
+  type: object
+  properties:
+    id:
+      type: integer
+      readOnly: true
+      example: 1
+    action:
+      type: string
+      enum:
+        - found
+        - search
+      example: found
+    place:
+      $ref: "./schemas.yml#/Place"
+    date:
+      type: string
+      format: date
+      example: 2022-01-01
+    shaft:
+      $ref: "./schemas.yml#/Shaft"
+    vanes:
+      type: array
+      items:
+        $ref: "./schemas.yml#/Vane"
+      default: []
+    user_id:
+      type: integer
+      example: 1
+  required:
+    - action
+    - place
+    - date
+    - shaft
+    - user_id
+
+Shaft:
+  type: object
+  properties:
+    id:
+      type: integer
+      readOnly: true
+      example: 1
+    manufacturer:
+      type: string
+      minLength: 2
+      example: easton
+    model:
+      type: string
+      example: X7
+      minLength: 2
+    material:
+      type: string
+      minLength: 2
+      example: aluminium
+    color:
+      type: string
+      minLength: 2
+      example: black
+    length:
+      type: number
+      format: float
+      example: 28.5
+  required:
+    - manufacturer
+    - model
+    - material
+    - color
+    - length
+
+Vane:
+  type: object
+  properties:
+    id:
+      type: integer
+      readOnly: true
+      example: 1
+    manufacturer:
+      type: string
+      minLength: 2
+      example: easton
+    color:
+      type: string
+      minLength: 2
+      example: red
+  required:
+    - color
+
+Place:
+  type: object
+  properties:
+    id:
+      type: integer
+      readOnly: true
+      example: 1
+    name:
+      type: string
+      minLength: 2
+      example: "Buttes-Chaumont Park"
+    address:
+      type: object
+      properties:
+        street:
+          type: string
+          minLength: 2
+          example: "1 Botzaris Street"
+        city:
+          type: string
+          minLength: 2
+          example: "Paris"
+        postal_code:
+          type: string
+          minLength: 2
+          example: "75019"
+        country:
+          type: string
+          minLength: 2
+          example: "France"
+      required:
+        - street
+        - city
+        - postal_code
+        - country
+    geolocation:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: float
+          example: 48.8808
+        longitude:
+          type: number
+          format: float
+          example: 2.3819
+      required:
+        - latitude
+        - longitude
+    description:
+      type: string
+      minLength: 2
+      example: "A large park in Paris, ideal for walks."
+  required:
+    - name
+    - address
+
+User:
+  type: object
+  properties:
+    id:
+      type: integer
+      readOnly: true
+      example: 1
+    mail:
+      type: string
+      format: email
+      example: nobody@example.com
+    name:
+      type: string
+      example: "John Doe"
+      minLength: 3
+    club:
+      type: string
+      minLength: 2
+      example: "Compagnie d'Arc de Coruscant"
+    encrypted_password:
+      type: string
+      writeOnly: true
+      minLength: 10
+  required:
+    - mail
+    - name
+    - club
+    - encrypted_password

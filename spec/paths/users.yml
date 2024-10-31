@@ -1,0 +1,54 @@
+---
+get:
+  summary: Get all users
+  operationId: api.users.search
+  parameters:
+    - $ref: "../components/parameters.yml#/offset"
+    - $ref: "../components/parameters.yml#/limit"
+    - $ref: "../components/parameters.yml#/filters"
+  responses:
+    "200":
+      description: A list of users.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "../components/schemas.yml#/User"
+    "204":
+      $ref: "../components/responses.yml#/NoContent"
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+
+post:
+  summary: Add new user
+  operationId: api.users.post
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../components/schemas.yml#/User"
+  responses:
+    "201":
+      description: User created
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas.yml#/User"
+      headers:
+        Location:
+          description: Created user URI
+          schema:
+            type: string
+            format: uri
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+    "403":
+      $ref: "../components/responses.yml#/Forbidden"
+    "409":
+      $ref: "../components/responses.yml#/Conflict"
