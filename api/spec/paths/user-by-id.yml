@@ -1,7 +1,7 @@
 ---
 get:
   summary: Get a user
-  operationId: api.users.get
+  operationId: users.get
   parameters:
     - $ref: "../components/parameters.yml#/user_id"
   responses:
@@ -20,7 +20,7 @@ get:
 
 put:
   summary: Update a user.
-  operationId: api.users.put
+  operationId: users.put
   parameters:
     - $ref: "../components/parameters.yml#/user_id"
   requestBody:
@@ -49,7 +49,7 @@ put:
 
 delete:
   summary: Delete a user
-  operationId: api.users.delete
+  operationId: users.delete
   parameters:
     - $ref: "../components/parameters.yml#/user_id"
   responses:

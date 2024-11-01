@@ -1,0 +1,11 @@
+---
+api:
+  database_uri: 'sqlite:///instance/oemf.sqlite3'
+  # database_uri: 'mysql+pymysql://logine:password@localhost:3306/oemf'
+  env: 'development'
+  host: 127.0.0.1
+  log_level: DEBUG
+  secret_key: 'somesecretormaybenot'
+  sqlalchemy:
+    echo: false
+    track_modifications: false

@@ -1,20 +1,20 @@
 ---
 get:
-  summary: Get all arrows
-  operationId: api.arrows.search
+  summary: Get all users
+  operationId: users.search
   parameters:
     - $ref: "../components/parameters.yml#/offset"
     - $ref: "../components/parameters.yml#/limit"
     - $ref: "../components/parameters.yml#/filters"
   responses:
-    '200':
-      description: A list of arrows
+    "200":
+      description: A list of users.
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: '../components/schemas.yml#/Arrow'
+              $ref: "../components/schemas.yml#/User"
     "204":
       $ref: "../components/responses.yml#/NoContent"
     "400":
@@ -23,30 +23,32 @@ get:
       $ref: "../components/responses.yml#/Unauthorized"
 
 post:
-  summary: Add a new arrow
-  operationId: api.arrows.post
+  summary: Add new user
+  operationId: users.post
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          $ref: '../components/schemas.yml#/Arrow'
+          $ref: "../components/schemas.yml#/User"
   responses:
-    '201':
-      description: Arrow created
+    "201":
+      description: User created
       content:
         application/json:
           schema:
-            $ref: '../components/schemas.yml#/Arrow'
+            $ref: "../components/schemas.yml#/User"
       headers:
         Location:
-          description: Created arrow URI
+          description: Created user URI
           schema:
             type: string
             format: uri
-    '400':
+    "400":
       $ref: "../components/responses.yml#/BadRequest"
     "401":
       $ref: "../components/responses.yml#/Unauthorized"
     "403":
       $ref: "../components/responses.yml#/Forbidden"
+    "409":
+      $ref: "../components/responses.yml#/Conflict"

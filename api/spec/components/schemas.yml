@@ -161,7 +161,7 @@ User:
       type: integer
       readOnly: true
       example: 1
-    mail:
+    email:
       type: string
       format: email
       example: nobody@example.com
@@ -178,7 +178,7 @@ User:
       writeOnly: true
       minLength: 10
   required:
-    - mail
+    - email
     - name
     - club
     - encrypted_password

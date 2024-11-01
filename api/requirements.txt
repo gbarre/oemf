@@ -1,0 +1,6 @@
+alembic
+connexion[flask, swagger-ui, uvicorn]
+openapi-spec-validator
+prance
+flask_migrate
+flask_sqlalchemy

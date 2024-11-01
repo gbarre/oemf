@@ -1,7 +1,7 @@
 ---
 get:
   summary: Get an arrow by ID
-  operationId: api.arrows.get
+  operationId: arrows.get
   parameters:
     - $ref: "../components/parameters.yml#/arrow_id"
   responses:
@@ -20,7 +20,7 @@ get:
 
 put:
   summary: Update an arrow
-  operationId: api.arrows.put
+  operationId: arrows.put
   parameters:
     - $ref: "../components/parameters.yml#/arrow_id"
   requestBody:
@@ -47,7 +47,7 @@ put:
 
 delete:
   summary: Delete an arrow
-  operationId: api.arrows.delete
+  operationId: arrows.delete
   parameters:
     - $ref: "../components/parameters.yml#/arrow_id"
   responses:
