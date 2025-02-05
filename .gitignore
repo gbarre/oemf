@@ -1,4 +1,5 @@
 config.yml
+*.sqlite3
 
 # Python
 __pycache__/

@@ -3,6 +3,7 @@ from datetime import datetime
 import enum
 
 from app import db
+from models.place import Place  # noqa: F401
 
 
 # Enum pour le champ action dans Arrow
@@ -47,7 +48,6 @@ class Arrow(db.Model):
     shaft = relationship(
         'Shaft',
         back_populates='arrows',
-        cascade="all, delete-orphan",
     )
     vanes = relationship(
         'Vane',
@@ -57,7 +57,6 @@ class Arrow(db.Model):
     place = relationship(
         'Place',
         back_populates='arrows',
-        cascade="all, delete-orphan",
     )
     user = relationship(
         'User',
@@ -102,7 +101,6 @@ class Shaft(db.Model):
     arrows = relationship(
         'Arrow',
         back_populates='shaft',
-        cascade="all, delete-orphan",
     )
 
     def __repr__(self):

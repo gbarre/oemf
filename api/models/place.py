@@ -26,6 +26,7 @@ class Place(db.Model):
         'Address',
         back_populates='place',
         cascade="all, delete-orphan",
+        single_parent=True,
     )
     arrows = relationship(
         'Arrow',
@@ -76,6 +77,7 @@ class Address(db.Model):
         'Place',
         back_populates='address',
         cascade="all, delete-orphan",
+        single_parent=True,
     )
 
     def __repr__(self):

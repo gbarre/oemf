@@ -1,6 +1,6 @@
 ---
 api:
-  database_uri: 'sqlite:///instance/oemf.sqlite3'
+  database_uri: 'sqlite:///oemf.sqlite3'
   # database_uri: 'mysql+pymysql://login:password@localhost:3306/oemf'
   env: 'development'
   host: 127.0.0.1

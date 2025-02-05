@@ -3,6 +3,8 @@ import logging
 import prance
 
 from connexion import FlaskApp
+from starlette.middleware.cors import CORSMiddleware
+from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from pathlib import Path
@@ -11,6 +13,7 @@ from typing import Any, Dict
 
 db = SQLAlchemy()
 migrate = Migrate()
+ma = Marshmallow()
 
 
 def get_bundled_specs(main_file: Path) -> Dict[str, Any]:
@@ -26,6 +29,14 @@ def get_bundled_specs(main_file: Path) -> Dict[str, Any]:
 def create_app(config):
     connexion_app = FlaskApp(__name__)
 
+    connexion_app.add_middleware(
+        CORSMiddleware,
+        position=connexion.middleware.MiddlewarePosition.BEFORE_EXCEPTION,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
     connexion_app.add_api(
         get_bundled_specs(
             Path("spec/index.yml"),
@@ -34,7 +45,6 @@ def create_app(config):
         strict_validation=False,
         validate_responses=True,
     )
-
     app = connexion_app.app
     app.config.from_object(config)
 
@@ -44,4 +54,5 @@ def create_app(config):
 
     db.init_app(app)
     migrate.init_app(app, db)
+    ma.init_app(app)
     return connexion_app
