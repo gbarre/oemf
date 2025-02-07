@@ -16,143 +16,77 @@ Arrow:
       type: integer
       readOnly: true
       example: 1
-    action:
-      type: string
-      enum:
-        - found
-        - search
-      example: found
-    place:
-      $ref: "./schemas.yml#/Place"
+    user_id:
+      type: integer
+      example: 1
     date:
       type: string
       format: date
       example: 2022-01-01
-    shaft:
-      $ref: "./schemas.yml#/Shaft"
-    vanes:
-      type: array
-      items:
-        $ref: "./schemas.yml#/Vane"
-      default: []
-    user_id:
-      type: integer
-      example: 1
-  required:
-    - action
-    - place
-    - date
-    - shaft
-    - user_id
-
-Shaft:
-  type: object
-  properties:
-    id:
-      type: integer
-      readOnly: true
-      example: 1
-    manufacturer:
+    action:
+      type: string
+      enum:
+        - found
+        - lost
+      example: found
+    location:
+      type: string
+      minLength: 2
+      example: "3D Ecouen"
+    shaft_manufacturer:
       type: string
       minLength: 2
       example: easton
-    model:
+      nullable: true
+    shaft_model:
       type: string
-      example: X7
       minLength: 2
-    material:
+      example: X7
+      nullable: true
+    shaft_material:
       type: string
       minLength: 2
       example: aluminium
-    color:
+    shaft_color:
       type: string
       minLength: 2
       example: black
-    length:
+      nullable: true
+    shaft_length:
       type: number
       format: float
       example: 28.5
-  required:
-    - manufacturer
-    - model
-    - material
-    - color
-    - length
-
-Vane:
-  type: object
-  properties:
-    id:
+      nullable: true
+    vanes_count:
       type: integer
-      readOnly: true
-      example: 1
-    manufacturer:
+      example: 3
+    vanes_color:
       type: string
       minLength: 2
-      example: easton
-    color:
+      example: red or red/green/bleu
+      nullable: true
+    point:
       type: string
       minLength: 2
-      example: red
-  required:
-    - color
-
-Place:
-  type: object
-  properties:
-    id:
-      type: integer
-      readOnly: true
-      example: 1
-    name:
+      example: field
+      nullable: true
+    nock:
       type: string
       minLength: 2
-      example: "Buttes-Chaumont Park"
-    address:
-      type: object
-      properties:
-        street:
-          type: string
-          minLength: 2
-          example: "1 Botzaris Street"
-        city:
-          type: string
-          minLength: 2
-          example: "Paris"
-        postal_code:
-          type: string
-          minLength: 2
-          example: "75019"
-        country:
-          type: string
-          minLength: 2
-          example: "France"
-      required:
-        - street
-        - city
-        - postal_code
-        - country
-    geolocation:
-      type: object
-      properties:
-        latitude:
-          type: number
-          format: float
-          example: 48.8808
-        longitude:
-          type: number
-          format: float
-          example: 2.3819
-      required:
-        - latitude
-        - longitude
+      example: beiter CX green
+      nullable: true
     description:
       type: string
       minLength: 2
-      example: "A large park in Paris, ideal for walks."
+      example: "found in the woods"
+      nullable: true
   required:
-    - name
-    - address
+    - action
+    - user_id
+    - date
+    - location
+    - shaft_material
+    - vanes_count
 
 User:
   type: object

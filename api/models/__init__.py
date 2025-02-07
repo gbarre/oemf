@@ -1,5 +1,4 @@
 from .user import User
-from .arrow import Arrow, Shaft, Vane, arrow_vanes
-from .place import Place, Address
+from .arrow import Arrow
 
-__all__ = ['User', 'Arrow', 'Shaft', 'Vane', 'Place', 'Address', 'arrow_vanes']
+__all__ = ['User', 'Arrow']

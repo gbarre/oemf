@@ -1,3 +1,5 @@
+llm/
+
 config.yml
 *.sqlite3
 

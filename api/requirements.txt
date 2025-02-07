@@ -7,3 +7,4 @@ gunicorn==22.0.0
 marshmallow-sqlalchemy==1.0.0
 openapi-spec-validator==0.7.1
 prance==23.6.21.0
+pymysql==1.1.1

@@ -1,15 +1,14 @@
-from sqlalchemy.orm import relationship
-from datetime import datetime
 import enum
+from datetime import date
+from marshmallow import fields
 
-from app import db
-from models.place import Place  # noqa: F401
+from app import db, ma
 
 
 # Enum pour le champ action dans Arrow
 class ArrowAction(enum.Enum):
     found = "found"
-    search = "search"
+    lost = "lost"
 
 
 class Arrow(db.Model):
@@ -25,131 +24,78 @@ class Arrow(db.Model):
         db.ForeignKey('users.id'),
         nullable=False,
     )
+    date = db.Column(
+        db.Date,
+        nullable=False,
+        default=date.today,
+    )
     action = db.Column(
         db.Enum(ArrowAction),
         nullable=False,
     )
-    date = db.Column(
-        db.DateTime,
+    location = db.Column(
+        db.String(255),
         nullable=False,
-        default=datetime.utcnow,
     )
-
-    # Relations avec Shaft, Vane et Place
-    shaft_id = db.Column(
+    shaft_manufacturer = db.Column(
+        db.String(255),
+        nullable=True,
+    )
+    shaft_model = db.Column(
+        db.String(255),
+        nullable=True,
+    )
+    shaft_material = db.Column(
+        db.String(255),
+        nullable=True,
+    )
+    shaft_color = db.Column(
+        db.String(255),
+        nullable=True,
+    )
+    shaft_length = db.Column(
+        db.Float,
+        nullable=True,
+    )
+    vanes_count = db.Column(
         db.Integer,
-        db.ForeignKey('shafts.id'),
+        nullable=False,
     )
-    place_id = db.Column(
-        db.Integer,
-        db.ForeignKey('places.id'),
+    vanes_color = db.Column(
+        db.String(255),
+        nullable=True,
     )
-
-    shaft = relationship(
-        'Shaft',
-        back_populates='arrows',
+    point = db.Column(
+        db.String(255),
+        nullable=True,
     )
-    vanes = relationship(
-        'Vane',
-        secondary='arrow_vanes',
-        back_populates='arrows',
+    nock = db.Column(
+        db.String(255),
+        nullable=True,
     )
-    place = relationship(
-        'Place',
-        back_populates='arrows',
-    )
-    user = relationship(
-        'User',
-        back_populates='arrows',
+    description = db.Column(
+        db.Text,
+        nullable=True,
     )
 
     def __repr__(self):
         return f"<Arrow(id={self.id}, action='{self.action}', " \
                f"date='{self.date}')>"
 
-
-class Shaft(db.Model):
-    __tablename__ = 'shafts'
-
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=True,
-    )
-    manufacturer = db.Column(
-        db.String,
-        nullable=False,
-    )
-    model = db.Column(
-        db.String,
-        nullable=False,
-    )
-    material = db.Column(
-        db.String,
-        nullable=True,
-    )
-    color = db.Column(
-        db.String,
-        nullable=True,
-    )
-    length = db.Column(
-        db.Float,
-        nullable=True,
-    )
-
-    # Relation avec Arrow
-    arrows = relationship(
-        'Arrow',
-        back_populates='shaft',
-    )
-
-    def __repr__(self):
-        return f"<Shaft(id={self.id}, manufacturer='{self.manufacturer}', " \
-               f"model='{self.model}')>"
+    __table_args__ = {'extend_existing': True}
 
 
-class Vane(db.Model):
-    __tablename__ = 'vanes'
+class ArrowSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Arrow
+        sqla_session = db.session
+        include_fk = True
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=True,
-    )
-    manufacturer = db.Column(
-        db.String,
-        nullable=True,
-    )
-    color = db.Column(
-        db.String,
-        nullable=True,
-    )
-
-    # Relation many-to-many avec Arrow via une table d'association
-    arrows = relationship(
-        'Arrow',
-        secondary='arrow_vanes',
-        back_populates='vanes',
-        )
-
-    def __repr__(self):
-        return f"<Vane(id={self.id}, manufacturer='{self.manufacturer}', " \
-               f"color='{self.color}')>"
+    id = fields.Integer(dump_only=True)
+    user_id = fields.Integer()
+    date = fields.Date(format="%Y-%m-%d")
+    action = fields.Enum(ArrowAction)
 
 
-# Table d'association pour la relation many-to-many entre Arrow et Vane
-arrow_vanes = db.Table(
-    'arrow_vanes', db.Model.metadata,
-    db.Column(
-        'arrow_id',
-        db.Integer,
-        db.ForeignKey('arrows.id', ondelete="CASCADE"),
-        primary_key=True,
-    ),
-    db.Column(
-        'vane_id',
-        db.Integer,
-        db.ForeignKey('vanes.id', ondelete="CASCADE"),
-        primary_key=True,
-    ),
-)
+arrow_schema = ArrowSchema()
+arrows_schema = ArrowSchema(many=True)
