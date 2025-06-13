@@ -8,14 +8,13 @@ from utils import Utils
 
 
 # @require_auth
-def search(offset, limit):
-    myfilters = {}
+def search(offset, limit, filters):
     try:
-        query = Utils.build_query_filters(Arrow, myfilters)
+        query = Utils.build_query_filters(Arrow, filters)
         arrows = Arrow.query.filter(*query)\
             .limit(limit).offset(offset).all()
     except AttributeError:
-        msg = f'Something with filters `{myfilters}` is wrong...'
+        msg = f'Something with filters `{filters}` is wrong...'
         raise BadRequest(description=msg)
 
     if not arrows:  # pragma: no cover

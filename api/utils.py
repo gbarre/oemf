@@ -23,6 +23,10 @@ class Utils:
         query = []
 
         for filter, value in filters.items():
-            field = getattr(model_class, filter)
-            query.append(field == value)
+            if filter == 'dateLost':
+                field = getattr(model_class, 'date')
+                query.append(field >= value)
+            else:
+                field = getattr(model_class, filter)
+                query.append(field.ilike(f'%{value}%'))
         return query
