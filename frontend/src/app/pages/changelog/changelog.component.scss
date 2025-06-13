@@ -1,0 +1,27 @@
+.changelog-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.changelog-container h2 {
+  margin-bottom: 1.5rem;
+}
+.changelog-container ul {
+  list-style: none;
+  padding: 0;
+}
+.changelog-container li {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.commit-message {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.commit-meta {
+  font-size: 0.9em;
+  color: #666;
+}

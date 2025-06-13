@@ -1,0 +1,117 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title">{{ 'HOME.TITLE' | translate }}</h2>
+    <p class="card-text" [innerHTML]="'HOME.DESCRIPTION_SITE' | translate"></p>
+  </div>
+</div>
+<div class="container mt-5">
+  <h3>{{ 'HOME.SEARCH_ARROW' | translate }}</h3>
+
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="row mt-3">
+      <app-input *ngFor="let input of inputList"
+        class="col-md-6 mb-2"
+        [label]="'HOME.' + input.name | translate"
+        [inputName]="input.name"
+        [inputPlaceholder]="input.placeholder"
+        [inputType]="input.type"
+        [formGroup]="searchForm"
+        [min]="input.min"></app-input>
+        <div class="col-md-6 mb-2 justify-content-end d-flex">
+          <button type="submit" class="btn btn-primary mt-3">
+            {{ 'COMMON.SEARCH' | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger mt-3 ms-2"
+            (click)="resetForm()">
+            {{  'COMMON.RESET' | translate }}
+          </button>
+        </div>
+    </div>
+
+  </form>
+
+  <ng-container *ngIf="isSubmitted">
+    <h3>
+      {{ 'COMMON.RESULTS' | translate }}
+      {{ results ? '(' + results.length +')' : '' }}
+    </h3>
+    <div class="card mb-4" *ngIf="results == null">
+      <div class="card-body">
+        <p class="card-text">{{ 'COMMON.NO_RESULT' | translate }}</p>
+      </div>
+    </div>
+    <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-3  g-4" *ngIf="results !== null">
+      <div class="col" *ngFor="let result of results">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">
+              {{ 'HOME.FOUND_ON' | translate }}
+              {{ result.date }}
+            </h5>
+          </div>
+          <div class="card-body">
+            <dl class="row">
+              <dt class="col-sm-6">{{ 'HOME.PLACE' | translate }}</dt>
+              <dd class="col-sm-6">{{ result.location }}</dd>
+              <dt class="col-sm-6">{{ 'HOME.DESCRIPTION' | translate }}</dt>
+              <dd class="col-sm-6">{{ result.description }}</dd>
+            </dl>
+            <button
+              class="btn btn-info"
+              data-bs-toggle="modal"
+              data-bs-target="modal"
+              (click)="openModal(result)">
+              {{  'HOME.SHOW_DETAILS' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div
+    class="modal fade show d-block"
+    tabindex="-1"
+    role="dialog"
+    *ngIf="showModal"
+    style="background-color: rgba(0,0,0,0.5);"
+    (click)="closeModal()">
+    <div
+      class="modal-dialog"
+      role="document"
+      (click)="$event.stopPropagation()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ 'HOME.ARROW_DETAILS' | translate }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <dl class="row">
+            <ng-container *ngFor="let field of inputList">
+              <ng-container *ngIf="selectedResult[field.name]">
+                <dt class="col-sm-6">
+                  {{ 'HOME.' + field.name | translate }}
+                </dt>
+                <dd class="col-sm-6">{{ selectedResult[field.name] }}</dd>
+              </ng-container>
+            </ng-container>
+          </dl>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()">
+            {{ 'COMMON.CLOSE' | translate }}
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="changelog-container">
+  <h2>{{ 'CHANGELOG.TITLE' | translate }}</h2>
+  <div *ngIf="loading" class="text-center text-muted">
+    {{ 'COMMON.LOADING' | translate }}
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    {{ 'CHANGELOG.LOADING_ERROR' | translate }}</div>
+  <ul *ngIf="!loading && !error">
+    <li *ngFor="let commit of commits">
+      <div class="commit-message">
+        <a [href]="commit.html_url" target="_blank">{{ commit.commit.message }}</a>
+      </div>
+      <div class="commit-meta">
+        <span>
+          {{ 'CHANGELOG.AUTHOR' | translate }}
+          {{ commit.commit.author.name }}
+        </span> |
+        <span>
+          {{ 'CHANGELOG.DATE' | translate }}
+          {{ getRelativeDate(commit.commit.author.date) }}
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>

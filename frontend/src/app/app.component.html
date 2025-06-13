@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./">{{ 'COMMON.TITLE' | translate }}</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="link1"
+            routerLinkActive="active">
+            Lien 1
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="link2">
+            Lien 2
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="changelog"
+            routerLinkActive="active">
+            Changelog
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Liens rapides
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <div class="bg-light p-5 rounded">
+    <router-outlet />
+  </div>
+</main>
+
+<footer class="text-center mt-4">
+  <p>{{ 'COMMON.VERSION' | translate }} {{ version }}</p>
+</footer>
+
+<a
+  [href]="githubLink"
+  target="_blank"
+  class="github-fork-banner">
+  Fork me &#64;
+  <i class="fab fa-github" aria-hidden="true"></i>
+</a>

@@ -1,0 +1,12 @@
+<div class="form-group" [formGroup]="formGroup">
+  <label [for]="inputName">{{ label }}</label>
+  <div class="input-group">
+    <input
+      [type]="inputType === undefined ? 'text' : inputType"
+      class="form-control"
+      [formControlName]="inputName"
+      [id]="inputName"
+      [placeholder]="inputPlaceholder === undefined ? '' : inputPlaceholder"
+      [min]="min" />
+  </div>
+</div>
