@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LINKS } from '../../app.constants';
 import { TranslateModule } from '@ngx-translate/core';
+import { NewlinePipe } from '../../pipes/newline.pipe';
 
 @Component({
   selector: 'app-changelog',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, NewlinePipe],
   templateUrl: './changelog.component.html',
   styleUrl: './changelog.component.scss',
 })
@@ -21,6 +22,7 @@ export class ChangelogComponent implements OnInit {
     this.http.get<any[]>(LINKS.GITHUB.commits).subscribe({
       next: (data) => {
         this.commits = data;
+        console.log(data);
         this.error = false;
       },
       error: () => {

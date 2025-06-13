@@ -8,7 +8,10 @@
   <ul *ngIf="!loading && !error">
     <li *ngFor="let commit of commits">
       <div class="commit-message">
-        <a [href]="commit.html_url" target="_blank">{{ commit.commit.message }}</a>
+        <a
+          [href]="commit.html_url"
+          target="_blank"
+          [innerHTML]="commit.commit.message | newline"></a>
       </div>
       <div class="commit-meta">
         <span>
