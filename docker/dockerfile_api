@@ -35,7 +35,7 @@ RUN groupadd --gid 3210 -r oemf-api && \
 USER oemf-api:oemf-api
 
 ENV TZ="Europe/Paris"
-ENV WORKERS="2"
+ENV WORKERS="3"
 ENV TIMEOUT="30"
 ENV DB_MIGRATE="upgrade"
 
