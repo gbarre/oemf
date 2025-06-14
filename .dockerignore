@@ -70,7 +70,6 @@ htmlcov/
 
 # Configuration files
 *.cfg
-*.ini
 
 # Ignore local environment variables
 .env
