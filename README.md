@@ -1,3 +1,9 @@
 # Où est ma flèche ?
 
-Vous le saurez bientôt...
+## Start local environment
+
+``` shell
+docker-compose --project-directory . -f docker/docker-compose.yml up --build
+```
+
+Note : This assume that you already have a `MariaDB` server running.

@@ -22,7 +22,6 @@ export class ChangelogComponent implements OnInit {
     this.http.get<any[]>(LINKS.GITHUB.commits).subscribe({
       next: (data) => {
         this.commits = data;
-        console.log(data);
         this.error = false;
       },
       error: () => {

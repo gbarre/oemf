@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/dockerfile_api
+    # image: oemf:api-v0
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./config.yml:/etc/oemf-api/config.yml
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/dockerfile_frontend
+    container_name: frontend
+    restart: unless-stopped
+    ports:
+      - "4200:4200"
+    environment:
+      - API_URL=http://localhost:5000

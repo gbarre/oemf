@@ -1,0 +1,44 @@
+FROM python:3.12-slim
+
+RUN set -eux; \
+  apt-get update; \
+  DEBIAN_FRONTEND=noninteractive apt-get upgrade -y; \
+  rm -rf /var/lib/apt/lists/*; \
+  apt-get clean
+
+WORKDIR /oemf-api
+
+COPY api/requirements.txt .
+RUN pip install --upgrade pip; \
+  pip install --upgrade setuptools; \
+  pip install --no-cache-dir -r requirements.txt
+
+COPY api/endpoints endpoints
+COPY api/migrations migrations
+COPY api/models models
+COPY api/spec spec
+COPY api/app.py .
+COPY api/config.py .
+COPY api/exceptions.py .
+COPY api/run.py .
+COPY api/utils.py .
+
+COPY ./docker/entrypoint_api.sh ./entrypoint.sh
+
+RUN groupadd --gid 3210 -r oemf-api && \
+  useradd --uid 65432 -r -g oemf-api oemf-api && \
+  chown -R oemf-api:oemf-api /oemf-api && \
+  chmod u+x entrypoint.sh && \
+  mkdir -p /home/oemf-api && \
+  chown -R oemf-api:oemf-api /home/oemf-api
+
+USER oemf-api:oemf-api
+
+ENV TZ="Europe/Paris"
+ENV WORKERS="2"
+ENV TIMEOUT="30"
+ENV DB_MIGRATE="upgrade"
+
+EXPOSE 5000
+
+ENTRYPOINT [ "/oemf-api/entrypoint.sh" ]
