@@ -5,7 +5,6 @@ services:
     build:
       context: .
       dockerfile: docker/dockerfile_api
-    # image: oemf:api-v0
     container_name: api
     restart: unless-stopped
     ports:
