@@ -1,0 +1,102 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>{{ 'REGISTER.CREATE_ACCOUNT' | translate }}</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="email" class="form-label">
+            {{ 'REGISTER.EMAIL' | translate }}
+          </label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            formControlName="email"
+          >
+          <div
+            *ngIf="
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+            "
+            class="text-danger"
+          >
+            {{ 'REGISTER.INVALID_EMAIL' | translate }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">
+            {{ 'REGISTER.NAME' | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            formControlName="name"
+          >
+          <div
+            *ngIf="
+              registerForm.get('name')?.invalid &&
+              registerForm.get('name')?.touched
+            "
+            class="text-danger"
+          >
+            {{ 'REGISTER.INVALID_PASSWORD' | translate }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="club" class="form-label">
+            {{ 'REGISTER.CLUB' | translate }}
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            id="club"
+            formControlName="club"
+          >
+          <div
+            *ngIf="
+              registerForm.get('club')?.invalid &&
+              registerForm.get('club')?.touched
+            "
+            class="text-danger"
+          >
+            {{ 'REGISTER.INVALID_CLUB' | translate }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">
+            {{ 'REGISTER.PASSWORD' | translate }}
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password"
+          >
+          <div
+            *ngIf="
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+            "
+            class="text-danger"
+          >
+            {{ 'REGISTER.INVALID_PASSWORD' | translate }}
+          </div>
+        </div>
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error }}
+        </div>
+        <div *ngIf="success" class="alert alert-success">
+          {{ 'REGISTER.REDIRECT' | translate }}
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="registerForm.invalid"
+        >
+          {{ 'REGISTER.SUBMIT' | translate }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

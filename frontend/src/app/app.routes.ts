@@ -10,4 +10,11 @@ export const routes: Routes = [
         (m) => m.ChangelogComponent
       ),
   },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./pages/register/register.component').then(
+        (m) => m.RegisterComponent
+      ),
+  },
 ];

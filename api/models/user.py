@@ -30,6 +30,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     email = fields.String()
     name = fields.String()
     club = fields.String()
+    password = fields.String(load_only=True)
     encrypted_password = fields.String(load_only=True)
     created_at = fields.DateTime(format="%Y-%m-%dT%H:%M:%SZ", dump_only=True)
 

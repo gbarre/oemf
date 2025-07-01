@@ -1,6 +1,7 @@
 from flask import request
 from marshmallow import ValidationError
 from werkzeug.exceptions import BadRequest, Conflict
+from werkzeug.security import generate_password_hash
 from sqlalchemy.exc import IntegrityError
 
 from app import db
@@ -29,13 +30,19 @@ def search(offset, limit, name=None):
 
 
 # @require_auth
-def post(user_data=None, **kwargs):
+def post(user_data=None):
+    print(1)
     if user_data is None:
         user_data = request.get_json()
     try:
         data = user_schema.load(user_data)
     except ValidationError as err:
+        print('raise')
         raise BadRequest(description=str(err))
+    print('pwet')
+    hashed_password = generate_password_hash(data['password'])
+    data['encrypted_password'] = hashed_password
+    data.pop('password', None)
     user = User(**data)
     db.session.add(user)
     try:
@@ -68,6 +75,10 @@ def put(user_id, **kwargs):
         raise BadRequest(description=str(err))
     try:
         for key in data:
+            if key == 'password':
+                data['encrypted_password'] = generate_password_hash(data[key])
+                data.pop('password', None)
+                key = 'encrypted_password'
             setattr(user_in_DB, key, data[key])
         db.session.commit()
     except IntegrityError:
