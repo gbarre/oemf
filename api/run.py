@@ -6,6 +6,20 @@ from pathlib import Path
 
 from app import create_app
 from config import YamlConfig
+from flask import jsonify
+from werkzeug.exceptions import HTTPException
+
+
+def error_logging_middleware(app):
+    @app.errorhandler(HTTPException)
+    def handle_http_exception(e):
+        response = e.get_response()
+        response.data = jsonify({
+            "error": f'{e.code} - {e.name}',
+            "error_description": e.description,
+        }).data
+        response.content_type = "application/json"
+        return response
 
 
 parser = argparse.ArgumentParser()
@@ -35,6 +49,7 @@ if config_file is None:
 yamlconfig = YamlConfig(config_file)
 connexion_app = create_app(yamlconfig)
 app = connexion_app.app
+error_logging_middleware(app)
 
 if __name__ == '__main__':
     uvicorn.run(

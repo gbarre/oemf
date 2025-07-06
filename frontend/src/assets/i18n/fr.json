@@ -1,4 +1,19 @@
 {
+  "Wrong password!": "Mot de passe incorrect !",
+  "ACCOUNT": {
+    "CLUB": "Club ou Compagnie",
+    "CREATE_ACCOUNT": "Créer un compte",
+    "EMAIL": "Adresse e-mail",
+    "INVALID_CLUB": "Ce champ doit comporter au moins 2 caractères",
+    "INVALID_EMAIL": "Adresse e-mail invalide",
+    "INVALID_NAME": "Le nom d'utilisateur doit comporter au moins 3 caractères",
+    "INVALID_PASSWORD": "Le mot de passe doit comporter au moins 10 caractères",
+    "NAME": "Nom d'utilisateur",
+    "PASSWORD": "Mot de passe",
+    "REDIRECT": "Vous allez être redirigé vers la page de connexion",
+    "SUBMIT": "S'inscrire...",
+    "TITLE": "Mon compte"
+  },
   "CHANGELOG": {
     "AUTHOR": "Auteur :",
     "DATE": "Date :",
@@ -26,15 +41,16 @@
   "HOME": {
     "ARROW_DETAILS": "Détails de la flèche",
     "DESCRIPTION": "Description",
-    "DESCRIPTION_SITE": "Ce site a pour objectif de vous aider à retrouver vos flèches perdues. Vous pouvez utiliser le moteur de recherche rapide ci-dessous pour commencer",
+    "DESCRIPTION_SITE": "Ce site a pour objectif de vous aider à retrouver vos flèches perdues.",
     "FOUND_ON": "Trouvée le",
+    "LOST_ON": "Perdue le",
     "LOCATION": "Lieu",
     "PLACE": "Lieu",
     "SEARCH_ARROW": "Rechercher une flèche",
     "SHOW_DETAILS": "Voir les détails",
     "TITLE": "Bienvenue sur Où Est Ma Flèche !",
-    "dateLost": "Date de perte",
-    "location": "Lieu de perte",
+    "date": "Date",
+    "location": "Lieu",
     "location_placeholder": "Pontoise, France",
     "nock": "Encoche",
     "nock_placeholder": "beiter verte",
@@ -51,16 +67,16 @@
     "vanes_color": "Couleur des plumes",
     "vanes_count": "Nombre de plumes"
   },
-  "REGISTER": {
+  "LOGIN": {
     "CREATE_ACCOUNT": "Créer un compte",
-    "EMAIL": "Adresse e-mail",
-    "INVALID_EMAIL": "Adresse e-mail invalide",
-    "NAME": "Nom d'utilisateur",
-    "INVALID_PASSWORD": "Le nom doit comporter au moins 10 caractères",
-    "PASSWORD": "Mot de passe",
-    "CLUB": "Club ou compagnie",
-    "INVALID_CLUB": "Ce champ doit comporter au moins 2 caractères",
-    "REDIRECT": "Vous allez être redirigé vers la page de connexion",
-    "SUBMIT": "S'inscrire..."
+    "PASSWORD_REQUIRED": "Le mot de passe est requis",
+    "REDIRECT": "Vous allez être redirigé vers la page d'accueil",
+    "SUBMIT": "Se connecter",
+    "TITLE": "Connexion",
+    "LOGOUT": "Se déconnecter"
+  },
+  "SEARCH": {
+    "ARROW_LOST": "J'ai perdu une flèche ...",
+    "ARROW_FOUND": "J'ai trouvé une flèche ..."
   }
 }

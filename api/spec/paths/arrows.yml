@@ -1,5 +1,6 @@
 ---
 get:
+  tags: ['Arrows']
   summary: Get all arrows
   operationId: arrows.search
   parameters:
@@ -23,6 +24,7 @@ get:
       $ref: "../components/responses.yml#/Unauthorized"
 
 post:
+  tags: ['Arrows']
   summary: Add a new arrow
   operationId: arrows.post
   requestBody:

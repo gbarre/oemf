@@ -19,6 +19,9 @@ components:
     $ref: ./components/schemas.yml
 
 paths:
+  /auth:
+    $ref: ./paths/auth.yml
+
   /arrows:
     $ref: ./paths/arrows.yml
   /arrows/{arrow_id}:

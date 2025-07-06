@@ -1,5 +1,6 @@
 ---
 get:
+  tags: ['Users']
   summary: Get a user
   operationId: users.get
   parameters:
@@ -19,6 +20,7 @@ get:
       $ref: "../components/responses.yml#/NotFound"
 
 put:
+  tags: ['Users']
   summary: Update a user.
   operationId: users.put
   parameters:
@@ -48,6 +50,7 @@ put:
       $ref: "../components/responses.yml#/Conflict"
 
 delete:
+  tags: ['Users']
   summary: Delete a user
   operationId: users.delete
   parameters:

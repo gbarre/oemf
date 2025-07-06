@@ -1,11 +1,17 @@
-<div class="container mt-5">
+<div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h2>{{ 'REGISTER.CREATE_ACCOUNT' | translate }}</h2>
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <h2>
+        {{
+          isAuthenticated ?
+          ('ACCOUNT.TITLE' | translate) :
+          ('ACCOUNT.CREATE_ACCOUNT' | translate)
+        }}
+      </h2>
+      <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
           <label for="email" class="form-label">
-            {{ 'REGISTER.EMAIL' | translate }}
+            {{ 'ACCOUNT.EMAIL' | translate }}
           </label>
           <input
             type="email"
@@ -15,17 +21,17 @@
           >
           <div
             *ngIf="
-              registerForm.get('email')?.invalid &&
-              registerForm.get('email')?.touched
+              accountForm.get('email')?.invalid &&
+              accountForm.get('email')?.touched
             "
             class="text-danger"
           >
-            {{ 'REGISTER.INVALID_EMAIL' | translate }}
+            {{ 'ACCOUNT.INVALID_EMAIL' | translate }}
           </div>
         </div>
         <div class="mb-3">
           <label for="name" class="form-label">
-            {{ 'REGISTER.NAME' | translate }}
+            {{ 'ACCOUNT.NAME' | translate }}
           </label>
           <input
             type="text"
@@ -35,17 +41,17 @@
           >
           <div
             *ngIf="
-              registerForm.get('name')?.invalid &&
-              registerForm.get('name')?.touched
+              accountForm.get('name')?.invalid &&
+              accountForm.get('name')?.touched
             "
             class="text-danger"
           >
-            {{ 'REGISTER.INVALID_PASSWORD' | translate }}
+            {{ 'ACCOUNT.INVALID_NAME' | translate }}
           </div>
         </div>
         <div class="mb-3">
           <label for="club" class="form-label">
-            {{ 'REGISTER.CLUB' | translate }}
+            {{ 'ACCOUNT.CLUB' | translate }}
           </label>
           <input
             type="text"
@@ -55,17 +61,17 @@
           >
           <div
             *ngIf="
-              registerForm.get('club')?.invalid &&
-              registerForm.get('club')?.touched
+              accountForm.get('club')?.invalid &&
+              accountForm.get('club')?.touched
             "
             class="text-danger"
           >
-            {{ 'REGISTER.INVALID_CLUB' | translate }}
+            {{ 'ACCOUNT.INVALID_CLUB' | translate }}
           </div>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">
-            {{ 'REGISTER.PASSWORD' | translate }}
+            {{ 'ACCOUNT.PASSWORD' | translate }}
           </label>
           <input
             type="password"
@@ -75,26 +81,30 @@
           >
           <div
             *ngIf="
-              registerForm.get('password')?.invalid &&
-              registerForm.get('password')?.touched
+              accountForm.get('password')?.invalid &&
+              accountForm.get('password')?.touched
             "
             class="text-danger"
           >
-            {{ 'REGISTER.INVALID_PASSWORD' | translate }}
+            {{ 'ACCOUNT.INVALID_PASSWORD' | translate }}
           </div>
         </div>
         <div *ngIf="error" class="alert alert-danger">
           {{ error }}
         </div>
         <div *ngIf="success" class="alert alert-success">
-          {{ 'REGISTER.REDIRECT' | translate }}
+          {{ 'ACCOUNT.REDIRECT' | translate }}
         </div>
         <button
           type="submit"
           class="btn btn-primary"
-          [disabled]="registerForm.invalid"
+          [disabled]="accountForm.invalid"
         >
-          {{ 'REGISTER.SUBMIT' | translate }}
+          {{
+            isAuthenticated ?
+            ('COMMON.EDIT' | translate) :
+            ('ACCOUNT.SUBMIT' | translate)
+          }}
         </button>
       </form>
     </div>

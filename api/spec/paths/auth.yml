@@ -1,0 +1,67 @@
+---
+get:
+  tags: ['Authentication']
+  summary: Return refreshed JWT token
+  operationId: auth.refresh_token
+  responses:
+    "200":
+      description: JWT token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              jwt:
+                type: string
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+
+post:
+  tags: ['Authentication']
+  summary: Return JWT token
+  operationId: auth.generate_token
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+              example: "jdoe@example.com"
+            password:
+              type: string
+              format: password
+              example: "S3cr3t"
+  responses:
+    "200":
+      description: JWT token
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              jwt:
+                type: string
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"
+
+options:
+  tags: ['Authentication']
+  summary: Manage OPTIONS requests for authentication
+  operationId: auth.pass_options
+  x-hide: true
+  responses:
+    '200':
+      description: Response for OPTIONS requests
+      content:
+        application/json:
+          schema:
+            type: object
+            nullable: true

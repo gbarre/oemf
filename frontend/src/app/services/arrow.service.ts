@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { filter, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Arrow, ArrowFilters } from '../objects/arrow';
+import { Arrow } from '../objects/arrow';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,11 @@ export class ArrowService {
 
   constructor(private http: HttpClient) {}
 
-  searchArrows(formValues: ArrowFilters): Observable<Arrow[]> {
+  searchArrows(
+    formValues: Arrow,
+    offset: number = 0,
+    limit: number = 9
+  ): Observable<HttpResponse<Arrow[]>> {
     let filters: string = '';
 
     Object.entries(formValues).forEach(([key, value]) => {
@@ -26,6 +30,15 @@ export class ArrowService {
       }
     });
 
-    return this.http.get<Arrow[]>(`${this.apiUrl}${filters}`);
+    filters += filters ? '&' : '?';
+    filters += `offset=${offset}&limit=${limit}`;
+
+    return this.http.get<Arrow[]>(`${this.apiUrl}${filters}`, {
+      observe: 'response',
+    });
+  }
+
+  postArrow(arrow: Arrow): Observable<Arrow> {
+    return this.http.post<Arrow>(this.apiUrl, arrow);
   }
 }

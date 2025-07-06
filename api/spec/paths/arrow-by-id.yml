@@ -1,5 +1,6 @@
 ---
 get:
+  tags: ['Arrows']
   summary: Get an arrow by ID
   operationId: arrows.get
   parameters:
@@ -19,6 +20,7 @@ get:
       $ref: "../components/responses.yml#/NotFound"
 
 put:
+  tags: ['Arrows']
   summary: Update an arrow
   operationId: arrows.put
   parameters:
@@ -46,6 +48,7 @@ put:
       $ref: "../components/responses.yml#/NotFound"
 
 delete:
+  tags: ['Arrows']
   summary: Delete an arrow
   operationId: arrows.delete
   parameters:

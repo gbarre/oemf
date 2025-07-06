@@ -7,6 +7,7 @@ config.yml
 __pycache__/
 *.py[cod]
 *$py.class
+.ruff_cache
 
 # Environnements virtuels
 env/

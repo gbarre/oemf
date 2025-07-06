@@ -16,37 +16,48 @@
         <li class="nav-item">
           <a
             class="nav-link"
-            routerLink="link1"
+            routerLink="search"
             routerLinkActive="active">
-            Lien 1
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="link2">
-            Lien 2
+            {{ 'HOME.SEARCH_ARROW' | translate }}
           </a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+        <ng-container *ngIf="isAuthenticated">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="account"
+              routerLinkActive="active">
+              {{ 'ACCOUNT.TITLE' | translate }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              *ngIf="isAuthenticated"
+              class="nav-link"
+              href="#"
+              (click)="logout()">
+              {{  'LOGIN.LOGOUT' | translate }}
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="!isAuthenticated">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="login"
+              routerLinkActive="active">
+              {{ 'LOGIN.TITLE' | translate }}
+            </a>
+          </li>
+        </ng-container>
         <li class="nav-item">
           <a
             class="nav-link"
             routerLink="changelog"
             routerLinkActive="active">
             Changelog
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Liens rapides
           </a>
         </li>
       </ul>
@@ -61,7 +72,7 @@
 </main>
 
 <footer class="text-center mt-4">
-  <p>{{ 'COMMON.VERSION' | translate }} {{ version }}</p>
+  {{ 'COMMON.VERSION' | translate }} {{ version }}
 </footer>
 
 <a

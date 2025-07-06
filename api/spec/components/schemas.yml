@@ -82,7 +82,6 @@ Arrow:
       nullable: true
   required:
     - action
-    - user_id
     - date
     - location
     - shaft_material

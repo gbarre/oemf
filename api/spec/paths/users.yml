@@ -1,5 +1,6 @@
 ---
 get:
+  tags: ['Users']
   summary: Get all users
   operationId: users.search
   parameters:
@@ -23,6 +24,7 @@ get:
       $ref: "../components/responses.yml#/Unauthorized"
 
 post:
+  tags: ['Users']
   summary: Add new user
   operationId: users.post
   requestBody:

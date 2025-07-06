@@ -1,11 +1,18 @@
 ---
 api:
+  admins:
+    - 'guillaume@jrmv.net'
   # database_uri: 'sqlite:///instance/oemf.sqlite3'
   database_uri: 'mysql+pymysql://oemf:oemf@192.168.12.253:3306/oemf'
   env: 'development'
   host: 127.0.0.1
-  log_level: DEBUG
+  log_level: INFO
   secret_key: 'somesecretormaybenot'
   sqlalchemy:
     echo: false
     track_modifications: false
+  jwt:
+    issuer: localhost
+    secret: 'anothersecretmaybenot'
+    lifetime: 600
+    algorithm: 'HS256'

@@ -97,5 +97,20 @@ class ArrowSchema(ma.SQLAlchemyAutoSchema):
     action = fields.Enum(ArrowAction)
 
 
+class ArrowPublicSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Arrow
+        sqla_session = db.session
+        include_fk = True
+        exclude = ('user_id',)
+
+    id = fields.Integer(dump_only=True)
+    date = fields.Date(format="%Y-%m-%d")
+    action = fields.Enum(ArrowAction)
+    location = fields.String()
+
+
 arrow_schema = ArrowSchema()
 arrows_schema = ArrowSchema(many=True)
+arrow_public_schema = ArrowPublicSchema()
+arrows_public_schema = ArrowPublicSchema(many=True)

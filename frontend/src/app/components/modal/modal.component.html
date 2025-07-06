@@ -1,0 +1,29 @@
+<div class="modal fade" #modal>
+  <div class="modal-dialog" [ngClass]="{ 'modal-large': modalLarge }">
+    <div class="modal-content bg-{{ modalColor }}">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalTitle }}</h5>
+        <button
+          type="button"
+          class="btn btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body" [innerHTML]="modalContent"></div>
+      <div class="modal-footer justify-content-between">
+        <button
+          type="button"
+          class="btn"
+          data-bs-dismiss="modal"
+          [ngClass]="{
+            'btn-outline-dark': modalColor === 'warning',
+            'btn-outline-light': modalColor !== 'warning'
+          }"
+          (click)="redirect()">
+          {{ 'COMMON.CLOSE' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

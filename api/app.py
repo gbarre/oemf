@@ -3,17 +3,19 @@ import logging
 import prance
 
 from connexion import FlaskApp
-from starlette.middleware.cors import CORSMiddleware
+from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from pathlib import Path
+from starlette.middleware.cors import CORSMiddleware
 from typing import Any, Dict
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 ma = Marshmallow()
+cors = CORS()
 
 
 def get_bundled_specs(main_file: Path) -> Dict[str, Any]:
@@ -23,7 +25,16 @@ def get_bundled_specs(main_file: Path) -> Dict[str, Any]:
         strict=True,
     )
     parser.parse()
-    return parser.specification
+    spec = parser.specification
+
+    for path, methods in list(spec.get('paths', {}).items()):
+        for method, details in list(methods.items()):
+            if isinstance(details, dict) and details.get('x-hide', False):
+                del spec['paths'][path][method]
+        if not spec['paths'][path]:
+            del spec['paths'][path]
+
+    return spec
 
 
 def create_app(config):
@@ -36,6 +47,7 @@ def create_app(config):
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
+        expose_headers=["X-Total-Count", "X-Limit", "X-Offset"],
     )
     connexion_app.add_api(
         get_bundled_specs(
@@ -48,11 +60,19 @@ def create_app(config):
     app = connexion_app.app
     app.config.from_object(config)
 
-    gunicorn_logger = logging.getLogger('gunicorn.error')
-    app.logger.handlers = gunicorn_logger.handlers
+    class SkipOptionsFilter(logging.Filter):
+        def filter(self, record):
+            return "OPTIONS" not in record.getMessage()
+
+    gunicorn_error_logger = logging.getLogger("gunicorn.error")
+    uvicorn_access_logger = logging.getLogger("uvicorn.access")
+    uvicorn_access_logger.handlers = gunicorn_error_logger.handlers
+    uvicorn_access_logger.addFilter(SkipOptionsFilter())
+    app.logger.handlers = uvicorn_access_logger.handlers
     app.logger.setLevel(config.LOG_LEVEL)
 
     db.init_app(app)
     migrate.init_app(app, db)
     ma.init_app(app)
+    cors.init_app(app)
     return connexion_app

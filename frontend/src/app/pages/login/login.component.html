@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>{{ 'LOGIN.TITLE' | translate }}</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="email" class="form-label">
+            {{ 'ACCOUNT.EMAIL' | translate }}
+          </label>
+          <input type="email" class="form-control" id="email"
+            formControlName="email">
+          <div
+            *ngIf="
+              loginForm.get('email')?.invalid &&
+              loginForm.get('email')?.touched
+            "
+            class="text-danger">
+            {{ 'ACCOUNT.INVALID_EMAIL' | translate }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">
+            {{ 'ACCOUNT.PASSWORD' | translate }}
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            formControlName="password">
+          <div
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              loginForm.get('password')?.touched
+            "
+            class="text-danger">
+            {{ 'LOGIN.PASSWORD_REQUIRED' | translate }}
+          </div>
+        </div>
+        <div *ngIf="error" class="alert alert-danger">
+          {{ error | translate }}
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="loginForm.invalid">
+          {{ 'LOGIN.SUBMIT' | translate }}
+        </button>
+      </form>
+      <div class="row mt-3">
+        <div class="col text-center">
+          <a
+            class="link"
+            routerLink="/account"
+            routerLinkActive="active">
+            {{ 'LOGIN.CREATE_ACCOUNT' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

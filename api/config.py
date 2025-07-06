@@ -30,6 +30,10 @@ class YamlConfig:
                 'pool_pre_ping': True,
             }
 
+            self.JWT = api['jwt']
+
+            self.ADMINS = api.get('admins', [])
+
         except KeyError as e:  # pragma: no cover
             raise ConfigError(
                 f"The key `{e}` is not present in the YAML configuration file."
