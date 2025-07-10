@@ -43,10 +43,9 @@ export class AccountComponent implements OnInit {
         .getUserById(this.authService.getUserId() || -1)
         .subscribe({
           next: (user) => (this.user = user),
-          error: (err) => {
-            this.error =
-              err.error?.error_description ||
-              "Erreur lors de la récupération de l'utilisateur";
+          error: () => {
+            this.authService.clearAuthToken();
+            this.router.navigate(['/login']);
           },
           complete: () => this.loadData(),
         });
@@ -68,6 +67,8 @@ export class AccountComponent implements OnInit {
         [Validators.required, Validators.minLength(2)],
       ],
       password: ['', [Validators.required, Validators.minLength(10)]],
+      newPassword: ['', [Validators.minLength(10)]],
+      confirmPassword: [''],
     });
   }
 
@@ -75,7 +76,6 @@ export class AccountComponent implements OnInit {
     if (this.accountForm.invalid) return;
     this.error = null;
     this.success = false;
-    console.log(this.accountForm.value);
     if (this.isAuthenticated) {
       this.updateUser();
     } else {
@@ -83,33 +83,60 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  checkPasswordMatch(): void {
+    const password = this.accountForm.get('password')?.value;
+    const newPassword = this.accountForm.get('newPassword')?.value;
+    const confirmPassword = this.accountForm.get('confirmPassword')?.value;
+    this.accountForm.get('confirmPassword')?.setErrors(null);
+    switch (this.isAuthenticated) {
+      case true:
+        if (newPassword && confirmPassword)
+          this.validateNewPassword(newPassword, confirmPassword);
+        break;
+      case false:
+        if (password && confirmPassword)
+          this.validateNewPassword(password, confirmPassword);
+        break;
+    }
+  }
+
+  validateNewPassword(password: string, confirmPassword: string): void {
+    if (password !== confirmPassword) {
+      this.accountForm.get('confirmPassword')?.setErrors({
+        notMatching: true,
+      });
+    } else {
+      this.accountForm.get('confirmPassword')?.setErrors(null);
+    }
+  }
+
   postUser(): void {
-    this.userService.postUser(this.accountForm.value).subscribe({
+    const { newPassword, confirmPassword, ...newUser } = this.accountForm.value;
+    this.userService.postUser(newUser).subscribe({
       next: () => {
         this.success = true;
         setTimeout(() => this.router.navigate(['/login']), 1500);
       },
       error: (err) => {
         this.error =
-          err.error?.error_description ||
-          'Erreur lors de la création du compte';
+          err.error?.error_description || 'Error while creating the account';
       },
     });
   }
 
   updateUser(): void {
     this.accountForm.value.email = this.user?.email;
-    console.log(this.accountForm.value);
+    const { confirmPassword, ...updateUser } = this.accountForm.value;
     this.userService
-      .putUser(this.authService.getUserId() || -1, this.accountForm.value)
+      .putUser(this.authService.getUserId() || -1, updateUser)
       .subscribe({
         next: () => {
           this.success = true;
-          // TODO : voir la redirection après la mise à jour
+          setTimeout(() => this.router.navigate(['/']), 1500);
         },
         error: (err) => {
           this.error =
-            err.error?.error_description || 'Erreur lors de la mise à jour';
+            err.error?.error_description || 'Error while updating the account';
         },
       });
   }

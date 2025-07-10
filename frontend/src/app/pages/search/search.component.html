@@ -127,11 +127,11 @@
     </nav>
     <div class="d-flex align-items-baseline mt-3">
       <div class="ms-auto p-2">
-        Aucun résultat ne correspond à votre recherche ?
+        {{ 'SEARCH.NO_RESULT' | translate }}
       </div>
       <div>
       <button class="btn btn-info" (click)="addArrow()">
-        Ajouter à la base de données !
+        {{ 'SEARCH.ADD_TO_DATABASE' | translate }}
       </button></div>
     </div>
   </ng-container>

@@ -5,7 +5,6 @@ import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
   selector: 'app-input',
   imports: [ReactiveFormsModule],
   templateUrl: './input.component.html',
-  styleUrl: './input.component.scss',
 })
 export class InputComponent {
   @Input() formGroup: UntypedFormGroup = new UntypedFormGroup({});

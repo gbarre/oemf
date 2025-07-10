@@ -78,6 +78,7 @@
             class="form-control"
             id="password"
             formControlName="password"
+            (blur)="checkPasswordMatch()"
           >
           <div
             *ngIf="
@@ -89,11 +90,56 @@
             {{ 'ACCOUNT.INVALID_PASSWORD' | translate }}
           </div>
         </div>
+        <div class="mb-3" *ngIf="isAuthenticated">
+          <label for="password" class="form-label">
+            {{ 'ACCOUNT.NEW_PASSWORD' | translate }}
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="newPassword"
+            formControlName="newPassword"
+            (blur)="checkPasswordMatch()"
+          >
+          <div
+            *ngIf="
+              accountForm.get('newPassword')?.invalid &&
+              accountForm.get('newPassword')?.touched
+            "
+            class="text-danger"
+          >
+            {{ 'ACCOUNT.INVALID_PASSWORD' | translate }}
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">
+            {{ 'ACCOUNT.CONFIRM_PASSWORD' | translate }}
+          </label>
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            (ngModelChange)="checkPasswordMatch()"
+          >
+          <div
+            *ngIf="
+              (accountForm.get('confirmPassword')?.errors?.['notMatching'] && accountForm.get('confirmPassword')?.touched)
+            "
+            class="text-danger"
+          >
+            {{ 'ACCOUNT.INVALID_PASSWORD_CONFIRM' | translate }}
+          </div>
+        </div>
         <div *ngIf="error" class="alert alert-danger">
           {{ error }}
         </div>
         <div *ngIf="success" class="alert alert-success">
-          {{ 'ACCOUNT.REDIRECT' | translate }}
+          {{
+            isAuthenticated ?
+            ('ACCOUNT.SUCCESS' | translate) :
+            ('ACCOUNT.REDIRECT' | translate)
+          }}
         </div>
         <button
           type="submit"

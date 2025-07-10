@@ -47,14 +47,14 @@ export class LoginComponent {
     this.authService.post_auth(this.loginForm.value).subscribe({
       next: (token: Token) => {
         if (!token || !token.jwt) {
-          this.error = 'Identifiants invalides';
+          this.error = 'Invalid credentials';
           return;
         }
         this.authService.setAuthToken(token.jwt);
         this.authService.authChangedSubject.next(true);
       },
       error: (err) => {
-        this.error = err.error?.error_description || 'Identifiants invalides';
+        this.error = err.error?.error_description || 'Invalid credentials';
       },
       complete: () => this.router.navigate([redirect || '/']),
     });

@@ -1,11 +1,11 @@
 from flask import request
 from marshmallow import ValidationError
 from werkzeug.exceptions import BadRequest, Conflict, Forbidden
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
 
 from app import db
-from models.user import User, user_schema, users_schema
+from models.user import User, user_schema, users_schema, user_put_schema
 from utils import Utils
 
 
@@ -66,17 +66,28 @@ def put(user_id, **kwargs):
         raise Forbidden(description='You can only edit your own profile.')
     user_data = kwargs.get('body', {})
     try:
-        data = user_schema.load(user_data)
+        data = user_put_schema.load(user_data)
     except ValidationError as err:
         raise BadRequest(description=str(err))
     if not Utils.is_admin() and \
        'email' in data and \
        data['email'] != user_in_DB.email:
         raise Forbidden(description='You cannot change your own email.')
-    if 'password' in data:
+
+    if 'newPassword' in data:
+        if not Utils.is_admin() and 'password' not in data:
+            raise BadRequest(
+                description='You must provide your current password.'
+            )
+        if not check_password_hash(
+            user_in_DB.encrypted_password, data['password']
+        ):
+            raise BadRequest(description='Your current password is incorrect.')
         data['encrypted_password'] = generate_password_hash(
-            data.pop('password')
+            data.pop('newPassword')
         )
+        data.pop('password')
+
     try:
         for key in data:
             setattr(user_in_DB, key, data[key])

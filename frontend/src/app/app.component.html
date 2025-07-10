@@ -23,6 +23,14 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="changelog"
+            routerLinkActive="active">
+            Changelog
+          </a>
+        </li>
         <ng-container *ngIf="isAuthenticated">
           <li class="nav-item">
             <a
@@ -52,14 +60,6 @@
             </a>
           </li>
         </ng-container>
-        <li class="nav-item">
-          <a
-            class="nav-link"
-            routerLink="changelog"
-            routerLinkActive="active">
-            Changelog
-          </a>
-        </li>
       </ul>
     </div>
   </div>

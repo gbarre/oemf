@@ -35,5 +35,19 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     created_at = fields.DateTime(format="%Y-%m-%dT%H:%M:%SZ", dump_only=True)
 
 
+class UserPutSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+        sqla_session = db.session
+
+    email = fields.String()
+    name = fields.String()
+    club = fields.String()
+    password = fields.String(load_only=True)
+    newPassword = fields.String(load_only=True)
+    encrypted_password = fields.String(load_only=True)
+
+
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
+user_put_schema = UserPutSchema()

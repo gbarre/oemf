@@ -3,22 +3,32 @@
   "ACCOUNT": {
     "CLUB": "Club ou Compagnie",
     "CREATE_ACCOUNT": "Créer un compte",
+    "CONFIRM_PASSWORD": "Confirmer le mot de passe",
     "EMAIL": "Adresse e-mail",
     "INVALID_CLUB": "Ce champ doit comporter au moins 2 caractères",
     "INVALID_EMAIL": "Adresse e-mail invalide",
     "INVALID_NAME": "Le nom d'utilisateur doit comporter au moins 3 caractères",
     "INVALID_PASSWORD": "Le mot de passe doit comporter au moins 10 caractères",
+    "INVALID_PASSWORD_CONFIRM": "Les mots de passe ne correspondent pas",
     "NAME": "Nom d'utilisateur",
+    "NEW_PASSWORD": "Nouveau mot de passe",
     "PASSWORD": "Mot de passe",
     "REDIRECT": "Vous allez être redirigé vers la page de connexion",
     "SUBMIT": "S'inscrire...",
+    "SUCCESS": "Votre compte a été mis à jour avec succès !",
     "TITLE": "Mon compte"
   },
   "CHANGELOG": {
     "AUTHOR": "Auteur :",
     "DATE": "Date :",
     "LOADING_ERROR": "Erreur lors du chargement du journal des modifications...",
-    "TITLE": "Journal des modifications"
+    "TITLE": "Journal des modifications",
+    "SECONDS": "il y a {{count}} seconde{{plural}}",
+    "MINUTES": "il y a {{count}} minute{{plural}}",
+    "HOURS": "il y a {{count}} heure{{plural}}",
+    "DAYS": "il y a {{count}} jour{{plural}}",
+    "MONTHS": "il y a {{count}} mois",
+    "YEARS": "il y a {{count}} an{{plural}}"
   },
   "COMMON": {
     "CANCEL": "Annuler",
@@ -76,7 +86,9 @@
     "LOGOUT": "Se déconnecter"
   },
   "SEARCH": {
+    "ADD_TO_DATABASE": "Ajouter à la base de données !",
     "ARROW_LOST": "J'ai perdu une flèche ...",
-    "ARROW_FOUND": "J'ai trouvé une flèche ..."
+    "ARROW_FOUND": "J'ai trouvé une flèche ...",
+    "NO_RESULT": "Aucun résultat ne correspond à votre recherche ?"
   }
 }

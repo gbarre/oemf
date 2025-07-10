@@ -30,7 +30,7 @@ put:
     content:
       application/json:
         schema:
-          $ref: "../components/schemas.yml#/User"
+          $ref: "../components/schemas.yml#/UserPut"
   responses:
     "200":
       description: User configured
