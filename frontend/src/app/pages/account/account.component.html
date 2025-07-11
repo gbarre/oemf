@@ -97,14 +97,14 @@
           <input
             type="password"
             class="form-control"
-            id="newPassword"
-            formControlName="newPassword"
+            id="new_password"
+            formControlName="new_password"
             (blur)="checkPasswordMatch()"
           >
           <div
             *ngIf="
-              accountForm.get('newPassword')?.invalid &&
-              accountForm.get('newPassword')?.touched
+              accountForm.get('new_password')?.invalid &&
+              accountForm.get('new_password')?.touched
             "
             class="text-danger"
           >

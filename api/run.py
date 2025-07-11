@@ -1,21 +1,35 @@
+"""Entry point for the OEMF API server."""
+
+# Copyright (c) 2025 oemf.jrmv.net
+
 import argparse
 import os
-import uvicorn
-
 from pathlib import Path
 
-from app import create_app
-from config import YamlConfig
+import uvicorn
 from flask import jsonify
 from werkzeug.exceptions import HTTPException
 
+from app import create_app
+from config import YamlConfig
 
-def error_logging_middleware(app):
+
+def error_logging_middleware(app: object) -> None:
+    """Middleware to log errors and handle HTTP exceptions."""
     @app.errorhandler(HTTPException)
-    def handle_http_exception(e):
+    def handle_http_exception(e: HTTPException) -> object:
+        """Handle HTTP exceptions and return a JSON response.
+
+        Args:
+            e (HTTPException): The HTTP exception to handle.
+
+        Returns:
+            Response: A Flask response object with a JSON error message.
+
+        """
         response = e.get_response()
         response.data = jsonify({
-            "error": f'{e.code} - {e.name}',
+            "error": f"{e.code} - {e.name}",
             "error_description": e.description,
         }).data
         response.content_type = "application/json"
@@ -24,8 +38,8 @@ def error_logging_middleware(app):
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-    '--config', '-c',
-    dest='config_file',
+    "--config", "-c",
+    dest="config_file",
     type=str,
     required=False,
     help="The YAML configuration file of the API server.",
@@ -38,20 +52,20 @@ config_file = args.config_file
 
 # The default YAML config file is the option is not provided.
 if config_file is None:
-    config_file = os.environ.get('OEMF_API_CONFIG')
+    config_file = os.environ.get("OEMF_API_CONFIG")
 
 if config_file is None:
-    if Path('config.yml').is_file():
-        config_file = 'config.yml'
+    if Path("config.yml").is_file():
+        config_file = "config.yml"
     else:
-        config_file = '/etc/oemf-api/config.yml'
+        config_file = "/etc/oemf-api/config.yml"
 
 yamlconfig = YamlConfig(config_file)
 connexion_app = create_app(yamlconfig)
 app = connexion_app.app
 error_logging_middleware(app)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     uvicorn.run(
         f"{Path(__file__).stem}:connexion_app",
         port=5000,

@@ -67,7 +67,7 @@ export class AccountComponent implements OnInit {
         [Validators.required, Validators.minLength(2)],
       ],
       password: ['', [Validators.required, Validators.minLength(10)]],
-      newPassword: ['', [Validators.minLength(10)]],
+      new_password: ['', [Validators.minLength(10)]],
       confirmPassword: [''],
     });
   }
@@ -85,22 +85,22 @@ export class AccountComponent implements OnInit {
 
   checkPasswordMatch(): void {
     const password = this.accountForm.get('password')?.value;
-    const newPassword = this.accountForm.get('newPassword')?.value;
+    const new_password = this.accountForm.get('new_password')?.value;
     const confirmPassword = this.accountForm.get('confirmPassword')?.value;
     this.accountForm.get('confirmPassword')?.setErrors(null);
     switch (this.isAuthenticated) {
       case true:
-        if (newPassword && confirmPassword)
-          this.validateNewPassword(newPassword, confirmPassword);
+        if (new_password && confirmPassword)
+          this.validatenew_password(new_password, confirmPassword);
         break;
       case false:
         if (password && confirmPassword)
-          this.validateNewPassword(password, confirmPassword);
+          this.validatenew_password(password, confirmPassword);
         break;
     }
   }
 
-  validateNewPassword(password: string, confirmPassword: string): void {
+  validatenew_password(password: string, confirmPassword: string): void {
     if (password !== confirmPassword) {
       this.accountForm.get('confirmPassword')?.setErrors({
         notMatching: true,
@@ -111,7 +111,8 @@ export class AccountComponent implements OnInit {
   }
 
   postUser(): void {
-    const { newPassword, confirmPassword, ...newUser } = this.accountForm.value;
+    const { new_password, confirmPassword, ...newUser } =
+      this.accountForm.value;
     this.userService.postUser(newUser).subscribe({
       next: () => {
         this.success = true;

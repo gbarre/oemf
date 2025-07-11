@@ -130,7 +130,7 @@ UserPut:
       type: string
       writeOnly: true
       minLength: 10
-    newPassword:
+    new_password:
       type: string
       writeOnly: true
       minLength: 10

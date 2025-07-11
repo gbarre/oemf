@@ -1,0 +1,7 @@
+# ruff.toml
+preview = true
+
+lint.ignore = [
+    "D203",
+    "D213",
+]

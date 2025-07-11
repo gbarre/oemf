@@ -1,5 +1,11 @@
+"""Arrow model and schema for the archery application."""
+
+# Copyright (c) 2025 oemf.jrmv.net
+
 import enum
 from datetime import date
+from typing import ClassVar
+
 from marshmallow import fields
 
 from app import db, ma
@@ -7,12 +13,16 @@ from app import db, ma
 
 # Enum pour le champ action dans Arrow
 class ArrowAction(enum.Enum):
+    """Enum for the action field in Arrow model."""
+
     found = "found"
     lost = "lost"
 
 
 class Arrow(db.Model):
-    __tablename__ = 'arrows'
+    """Model representing an arrow in the archery application."""
+
+    __tablename__ = "arrows"
 
     id = db.Column(
         db.Integer,
@@ -21,7 +31,7 @@ class Arrow(db.Model):
     )
     user_id = db.Column(
         db.Integer,
-        db.ForeignKey('users.id'),
+        db.ForeignKey("users.id"),
         nullable=False,
     )
     date = db.Column(
@@ -78,15 +88,27 @@ class Arrow(db.Model):
         nullable=True,
     )
 
-    def __repr__(self):
-        return f"<Arrow(id={self.id}, action='{self.action}', " \
-               f"date='{self.date}')>"
+    def __repr__(self) -> str:
+        """Return string representation of the Arrow model.
 
-    __table_args__ = {'extend_existing': True}
+        Returns:
+            A string representation of the Arrow object.
+
+        """
+        return (
+            f"<Arrow(id={self.id}, action='{self.action}', "
+            f"date='{self.date}')>"
+        )
+
+    __table_args__: ClassVar[dict[str, bool]] = {"extend_existing": True}
 
 
 class ArrowSchema(ma.SQLAlchemyAutoSchema):
+    """Schema for Arrow model."""
+
     class Meta:
+        """Meta class for ArrowSchema."""
+
         model = Arrow
         sqla_session = db.session
         include_fk = True
@@ -98,11 +120,15 @@ class ArrowSchema(ma.SQLAlchemyAutoSchema):
 
 
 class ArrowPublicSchema(ma.SQLAlchemyAutoSchema):
+    """Schema for public representation of Arrow model."""
+
     class Meta:
+        """Meta class for ArrowPublicSchema."""
+
         model = Arrow
         sqla_session = db.session
         include_fk = True
-        exclude = ('user_id',)
+        exclude = ("user_id",)
 
     id = fields.Integer(dump_only=True)
     date = fields.Date(format="%Y-%m-%d")
