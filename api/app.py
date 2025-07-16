@@ -1,5 +1,4 @@
-"""# API application module for creating and configuring the Flask application.
-"""
+"""API application module."""
 
 # Copyright (c) 2025 oemf.jrmv.net
 

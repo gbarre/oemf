@@ -2,9 +2,6 @@
 
 # Copyright (c) 2025 oemf.jrmv.net
 
-from ast import Dict
-from typing import Optional
-
 from flask import jsonify, make_response, request
 from marshmallow import ValidationError
 from werkzeug.exceptions import BadRequest, Forbidden
@@ -21,7 +18,7 @@ from utils import Utils
 
 
 @Utils.require_auth
-def search(offset: int, limit: int, filters: Optional(dict) = None) -> tuple:
+def search(offset: int, limit: int, filters: object = None) -> tuple:
     """Search for arrows with optional filters.
 
     Raises:
@@ -57,7 +54,7 @@ def search(offset: int, limit: int, filters: Optional(dict) = None) -> tuple:
 
 
 @Utils.require_auth
-def post(arrow_data: Optional(Dict) = None, **kwargs: object) -> tuple:
+def post(arrow_data: object = None, **kwargs: object) -> tuple:
     """Create a new arrow.
 
     Raises:

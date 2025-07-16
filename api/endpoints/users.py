@@ -2,8 +2,6 @@
 
 # Copyright (c) 2025 oemf.jrmv.net
 
-from typing import Optional
-
 from flask import request
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
@@ -16,7 +14,7 @@ from utils import Utils
 
 
 @Utils.require_admin_token
-def search(offset: int, limit: int, filters: Optional(dict) = None) -> list:
+def search(offset: int, limit: int, filters: object = None) -> list:
     """Search for user profiles with optional filters.
 
     Raises:
