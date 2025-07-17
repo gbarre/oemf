@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -28,7 +28,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
   ],
   templateUrl: './search.component.html',
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   @ViewChild(ModalComponent) modalComponent!: ModalComponent;
 
   searchForm: FormGroup;
@@ -75,12 +75,6 @@ export class SearchComponent implements OnInit {
         }
       });
     });
-  }
-
-  ngOnInit(): void {
-    if (!this.authService.isValidToken()) {
-      this.router.navigate(['/login'], { queryParams: { redirect: 'search' } });
-    }
   }
 
   initForm(): void {

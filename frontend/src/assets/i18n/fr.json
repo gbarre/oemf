@@ -90,5 +90,16 @@
     "ARROW_LOST": "J'ai perdu une flèche ...",
     "ARROW_FOUND": "J'ai trouvé une flèche ...",
     "NO_RESULT": "Aucun résultat ne correspond à votre recherche ?"
+  },
+  "USERS": {
+    "ACTIONS": "Actions",
+    "BUTTON_TITLE": "Utilisateurs",
+    "CLUB": "Club / Compagnie",
+    "DELETE_USER": "Supprimer l'utilisateur",
+    "EDIT_PASSWORD": "Modifier le mot de passe",
+    "EMAIL": "E-mail",
+    "NAME": "Nom",
+    "NEW_PASSWORD": "Nouveau mot de passe",
+    "TITLE": "Gestion des utilisateurs"
   }
 }

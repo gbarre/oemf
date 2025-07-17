@@ -24,13 +24,14 @@ export class AppComponent implements OnInit, OnDestroy {
   version: string = packageInfo.version;
   githubLink = LINKS.GITHUB.repo;
   isAuthenticated = false;
+  isAdmin = false;
   tokenExpire = 0;
 
   private intervalId: any;
 
   constructor(
     public translate: TranslateService,
-    private authService: AuthService
+    public authService: AuthService
   ) {
     translate.setDefaultLang('fr');
     const browserLang = translate.getBrowserLang() || 'fr';
@@ -42,6 +43,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.authService.loadAdminStatus();
+    this.authService.isAdmin().subscribe((isAdmin) => {
+      this.isAdmin = isAdmin;
+    });
     this.intervalId = setInterval(() => {
       if (this.authService.isValidToken()) {
         if (this.authService.getExpirationTime()) {

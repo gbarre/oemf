@@ -1,0 +1,20 @@
+---
+get:
+  tags: ['Authentication']
+  summary: Return if the user is an admin
+  operationId: auth.is_admin
+  responses:
+    "200":
+      description: User is an admin
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              admin:
+                type: boolean
+                example: true
+    "400":
+      $ref: "../components/responses.yml#/BadRequest"
+    "401":
+      $ref: "../components/responses.yml#/Unauthorized"

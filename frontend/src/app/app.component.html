@@ -23,6 +23,16 @@
         </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+        <ng-container *ngIf="isAdmin">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="users"
+              routerLinkActive="active">
+              {{ 'USERS.BUTTON_TITLE' | translate }}
+            </a>
+          </li>
+        </ng-container>
         <li class="nav-item">
           <a
             class="nav-link"

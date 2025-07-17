@@ -101,3 +101,14 @@ def refresh_token() -> dict:
             algorithm=current_app.config["JWT"]["algorithm"],
         ),
     }
+
+
+@Utils.require_auth
+def is_admin() -> dict:
+    """Check if the current user is an admin.
+
+    Returns:
+        dict: A dictionary indicating whether the user is an admin.
+
+    """
+    return {"admin": Utils.is_admin()}

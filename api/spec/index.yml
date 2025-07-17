@@ -21,6 +21,8 @@ components:
 paths:
   /auth:
     $ref: ./paths/auth.yml
+  /auth/is-admin:
+    $ref: ./paths/auth-is-admin.yml
 
   /arrows:
     $ref: ./paths/arrows.yml

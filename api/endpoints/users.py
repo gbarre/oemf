@@ -133,7 +133,7 @@ def put(user_id: int, **kwargs: object) -> tuple:
             )
         if not check_password_hash(
             user_in_db.encrypted_password, data["password"],
-        ):
+        ) and not Utils.is_admin():
             raise BadRequest(description="Your current password is incorrect.")
         data["encrypted_password"] = generate_password_hash(
             data.pop("new_password"),
@@ -166,7 +166,7 @@ def delete(user_id: int) -> tuple:
 
     """
     user = Utils.get_from_db(User, user_id)
-    if not Utils.is_admin() or user.id != Utils.get_userid():
+    if not Utils.is_admin() and user.id != Utils.get_userid():
         raise Forbidden(description="You can only delete your own profile.")
     db.session.delete(user)
     db.session.commit()

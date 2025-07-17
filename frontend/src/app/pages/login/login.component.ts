@@ -52,6 +52,7 @@ export class LoginComponent {
         }
         this.authService.setAuthToken(token.jwt);
         this.authService.authChangedSubject.next(true);
+        this.authService.loadAdminStatus();
       },
       error: (err) => {
         this.error = err.error?.error_description || 'Invalid credentials';

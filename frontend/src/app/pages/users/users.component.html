@@ -1,0 +1,91 @@
+<div class="container mt-4">
+  <h3>{{ 'USERS.TITLE' | translate }}</h3>
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>{{ 'USERS.NAME' | translate }}</th>
+        <th>{{ 'USERS.EMAIL' | translate }}</th>
+        <th>{{ 'USERS.CLUB' | translate }}</th>
+        <th>{{ 'USERS.ACTIONS' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.club }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-warning"
+            (click)="openEditPasswordModal(user)"
+            data-bs-toggle="modal"
+            data-bs-target="#editPasswordModal">
+            {{ 'USERS.EDIT_PASSWORD' | translate }}
+          </button>
+          <button
+            class="btn btn-sm btn-danger ms-2"
+            (click)="deleteUser(user.id)">
+            {{ 'USERS.DELETE_USER' | translate }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="editPasswordModal"
+  tabindex="-1"
+  aria-labelledby="editPasswordModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form (ngSubmit)="updatePassword()">
+        <div class="modal-header">
+          <h5
+            class="modal-title"
+            id="editPasswordModalLabel">
+            {{ 'USERS.EDIT_PASSWORD' | translate }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Fermer">
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label
+              for="newPassword"
+              class="form-label">
+              {{ 'USERS.NEW_PASSWORD' | translate }}
+            </label>
+            <input
+              type="password"
+              class="form-control"
+              id="newPassword"
+              [(ngModel)]="selectedUserPassword"
+              name="newPassword"
+              required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal">
+            {{ 'COMMON.CANCEL' | translate }}
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal">
+            {{ 'COMMON.SAVE' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Token } from '../objects/token';
 
@@ -16,6 +16,8 @@ export class AuthService {
     this.isAuthenticated()
   );
   public authChanged$ = this.authChangedSubject.asObservable();
+
+  private adminStatus$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
 
@@ -88,5 +90,23 @@ export class AuthService {
     } catch {
       return null;
     }
+  }
+
+  isAdmin(): Observable<boolean> {
+    const url = `${this.endpoint_auth}/is-admin`;
+    return this.http.get<{ admin: boolean }>(url).pipe(
+      map((res) => res.admin),
+      catchError(() => of(false))
+    );
+  }
+
+  loadAdminStatus(): void {
+    this.isAdmin().subscribe((isAdmin) => {
+      this.adminStatus$.next(isAdmin);
+    });
+  }
+
+  getAdminStatus(): Observable<boolean> {
+    return this.adminStatus$.asObservable();
   }
 }
